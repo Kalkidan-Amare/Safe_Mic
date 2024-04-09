@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('ws/',include('realtime_chat.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
