@@ -12,4 +12,4 @@ class AppointmentSerializer(serializers.ModelSerializer):
 class CounselorProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = CounselorProfile
-        fields = ['id', 'bio', 'phone_number', 'years_of_experience']
+        fields = ['id', 'bio','languages','specialities', 'years_of_experience']

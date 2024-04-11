@@ -2,13 +2,12 @@ from django.db import models
 from accounts.models import userAccount
 
 
-# Create your models here.
 
 class CounselorProfile(models.Model):
     user = models.OneToOneField(userAccount, on_delete=models.CASCADE)
-    bio = models.TextField()
-    phone_number = models.CharField(max_length=20)
-    address = models.CharField(max_length=255)
+    bio = models.TextField(blank=False)
+    languages=models.TextField(blank=False)
+    specialities=models.TextField(blank=False)
     years_of_experience = models.IntegerField(default=0)
     verified=models.BooleanField(default=False)
 
