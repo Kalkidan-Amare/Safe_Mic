@@ -10,6 +10,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
         fields = ['id', 'counselor', 'appointment_datetime']
 
 class CounselorProfileSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.name', read_only=True)
     class Meta:
         model = CounselorProfile
-        fields = ['id', 'bio','languages','specialities', 'years_of_experience']
+        fields = ['id', 'username', 'bio','languages','specialities', 'years_of_experience', 'verified']
