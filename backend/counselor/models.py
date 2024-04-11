@@ -12,7 +12,7 @@ class CounselorProfile(models.Model):
     verified=models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Profile of {self.user.username} (Counselor)"
+        return f"Profile of {self.verified}"
     
 class Appointment(models.Model):
     user = models.OneToOneField(userAccount, on_delete=models.CASCADE)
