@@ -15,6 +15,7 @@ import os
 from pathlib import Path
 from django.core.mail.backends.smtp import EmailBackend
 
+
 from pathlib import Path
 from dotenv import load_dotenv
 import os
