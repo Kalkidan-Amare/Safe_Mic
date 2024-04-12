@@ -13,4 +13,4 @@ class CounselorProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.name', read_only=True)
     class Meta:
         model = CounselorProfile
-        fields = ['id', 'username', 'gender', 'bio','languages','specialities', 'years_of_experience', 'verified']
+        fields = ['id', 'username', 'bio','languages','specialities', 'years_of_experience', 'verified']
