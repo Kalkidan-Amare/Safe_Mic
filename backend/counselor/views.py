@@ -42,38 +42,21 @@ class CounselorProfileView(APIView):
         counselor_profile.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# In your view
 class AppointmentCreateAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         # Get the user from the token
         user = request.user
-        serializer = AppointmentSerializer(data=request.data, context={'user': user})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-    def post(self, request, format=None):
-        # Get the user from the token
-        jwt_auth = JWTAuthentication()
-        try:
-            user, _ = jwt_auth.authenticate(request)
-        except Exception as e:
-            return Response({"detail": "Authentication credentials were not provided."}, status=status.HTTP_401_UNAUTHORIZED)
-
-        if not user:
-            return Response({"detail": "Invalid authentication credentials."}, status=status.HTTP_401_UNAUTHORIZED)
-
-        # Assign the authenticated user to the appointment
-        request.data['user'] = user.id
+        request.data['user'] = user.id  # Make sure to include the user ID in the request data
 
         serializer = AppointmentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class AppointmentDeleteAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
