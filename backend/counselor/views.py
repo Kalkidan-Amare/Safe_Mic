@@ -77,10 +77,16 @@ class AppointmentDeleteAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class AppointmentListAPIView(generics.ListAPIView):
-    queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
     permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]  # Ensure JWT authentication is used
 
+    def get_queryset(self):
+        user = self.request.user
+        counselor_id = user.id  # Assuming counselor ID is the same as the user ID
+        return Appointment.objects.filter(counselor=counselor_id)
+    
+    
 class CounselorProfileListAPIView(generics.ListAPIView):
     serializer_class = CounselorProfileSerializer
 

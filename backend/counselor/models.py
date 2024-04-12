@@ -5,6 +5,7 @@ from accounts.models import userAccount
 
 class CounselorProfile(models.Model):
     user = models.OneToOneField(userAccount, on_delete=models.CASCADE)
+    gender=models.CharField(max_length=6 ,blank=False)
     bio = models.TextField(blank=False)
     languages=models.TextField(blank=False)
     specialities=models.TextField(blank=False)
