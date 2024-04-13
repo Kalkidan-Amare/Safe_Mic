@@ -13,7 +13,7 @@ class UserAccountManager(BaseUserManager):
         return user
 
     def _is_student_email(self, email):
-        return email.endswith('@aastustudent.com')
+        return email.endswith('@aastustudent.edu.et')
 
 class userAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)

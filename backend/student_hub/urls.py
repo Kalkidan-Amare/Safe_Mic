@@ -10,6 +10,7 @@ urlpatterns = [
     path('counselor/', include('counselor.urls')),
     path('complaint/', include('complaint.urls')),
     path('chatbot/', include('chatbot.urls')),
+    path('all/', include('accounts.urls'))
 ]
 
 urlpatterns+=[re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]

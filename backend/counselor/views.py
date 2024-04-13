@@ -93,8 +93,8 @@ class AppointmentListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        counselor_id = user.id  # Assuming counselor ID is the same as the user ID
-        return Appointment.objects.filter(counselor=counselor_id)
+        counselor_profile = CounselorProfile.objects.get(user=user)  # Get counselor profile associated with the user
+        return Appointment.objects.filter(counselor=counselor_profile)
     
     
 class CounselorProfileListAPIView(generics.ListAPIView):
