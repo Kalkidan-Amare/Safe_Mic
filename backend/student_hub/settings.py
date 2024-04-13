@@ -15,6 +15,7 @@ import os
 from pathlib import Path
 from django.core.mail.backends.smtp import EmailBackend
 
+
 from pathlib import Path
 from dotenv import load_dotenv
 import os
@@ -30,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-70e($l!i7p6)q46cu(u4ao#m#_3j08n^&!=k_ob%t3^&rwvce!'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -59,6 +60,12 @@ INSTALLED_APPS = [
     'chatbot',
     'channels',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+}
 
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 
@@ -116,8 +123,8 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
-EMAIL_HOST_USER='kaljwt3@gmail.com'
-EMAIL_HOST_PASSWORD='uwbr yxke fsfw njhy'
+EMAIL_HOST_USER=os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS=True
 
 # Password validation
