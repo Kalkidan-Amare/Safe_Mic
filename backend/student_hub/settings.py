@@ -36,12 +36,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.43.196', 'localhost' ,'192.168.43.196']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -71,6 +72,7 @@ CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    'https://192.168.43.196:8000'
 ]
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 CORS_ALLOW_ALL_HEADERS = True
