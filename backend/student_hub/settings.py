@@ -31,12 +31,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
-
+OPENAI_API_KEY = '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'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+SECRET_KEY='django-insecure-70e($l!i7p6)q46cu(u4ao#m#_3j08n^&!=k_ob%t3^&rwvce!'
 
 
 # Application definition
@@ -123,8 +124,8 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
-EMAIL_HOST_USER=os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER='kaljwt3@gmail.com'
+EMAIL_HOST_PASSWORD='uwbr yxke fsfw njhy'
 EMAIL_USE_TLS=True
 
 # Password validation
@@ -192,10 +193,10 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT={
     'AUTH_HEADER_TYPES':('JWT',),
-    'ACCESS_TOKEN_LIFETIME' : timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME' : timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME' : timedelta(days=30),
+    'REFRESH_TOKEN_LIFETIME' : timedelta(days=30),
 }
-
+ACTIVATION_URL='http://localhost:8000'
 DJOSER={
     'LOGIN_FIELD':'email',
     'USER_CREATE_PASSWORD_RETYPE':True,
@@ -204,7 +205,7 @@ DJOSER={
     'SEND_CONFIRMATION_EMAIL':True,
     'SET_USERNAME_RETYPE':True,
     'SET_PASSWORD_RETYPE':True,
-    'PASSWORD_RESET_CONFIRM_URL':'password/reset/confirm/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_URL':'password/reset/confirm/{uid}/{token}/{user.email}/',
     'USERNAME_RESET_CONFIRM_URL':'email/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL':'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL':True,
@@ -213,4 +214,8 @@ DJOSER={
         'user': 'accounts.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
+    'EMAIL':{
+        'activation': 'accounts.email.ActivationEmail',
+    }
 }
+

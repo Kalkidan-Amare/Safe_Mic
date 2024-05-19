@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{% block subject %}
+{% blocktrans %}Account activation for safe-mic{% endblocktrans %}
+{% endblock subject %}
+
+{% block html_body %}
+<p>{% blocktrans %}You're receiving this email because you need to finish activation process on {{ site_name }}.{% endblocktrans %}</p>
+
+<p>{% trans "Please click the activation link button" %}</p><a style="text-decoration: none; font-weight: 200; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen; padding: 10px; display: inline-block; width:150px; text-align: center; border-radius: 10px; color: white; background-color: rgb(84, 84, 255);" href="{{ url|safe }}/activate/{{uid}}/{{token}}/{{email}}">activate</a>
+
+<p>{% trans "Thanks for using our site!" %}</p>
+
+{% endblock html_body %}

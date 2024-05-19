@@ -13,7 +13,11 @@ class AppointmentSerializer(serializers.ModelSerializer):
         # Create the Appointment instance
         appointment = Appointment.objects.create(**validated_data)
         return appointment
-
+    
+class DateTimeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appointment
+        fields = ['appointment_datetime']
 
 class CounselorProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.name', read_only=True)

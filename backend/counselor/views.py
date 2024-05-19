@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .models import CounselorProfile
-from .serializers import CounselorProfileSerializer
+from .serializers import CounselorProfileSerializer, DateTimeSerializer
 from .permissions import IsOwner
 from .models import Appointment
 from .serializers import AppointmentSerializer
@@ -34,6 +34,14 @@ class CounselorProfileView(APIView):
             serializer.save(user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def put(self, request):
+        user = self.request.user  # This will give you the user from the JWT token
+        counselor_profile = CounselorProfile.objects.get(user=user)
+        serializer = CounselorProfileSerializer(counselor_profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
         user = self.request.user  # This will give you the user from the JWT token
@@ -43,8 +51,20 @@ class CounselorProfileView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # In your view
+class DateTimeList(generics.ListAPIView):
+    serializer_class=DateTimeSerializer
+    def get_queryset(self):
+        counselor_id = self.kwargs['counselor_id']
+        return Appointment.objects.filter(counselor=counselor_id)
+    
+
 class AppointmentCreateAPIView(APIView):
     permission_classes = [IsAuthenticated]
+    def get(self, request):
+        user = request.user
+        appointments = Appointment.objects.filter(user=user)
+        serializer = AppointmentSerializer(appointments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         # Get the user from the token

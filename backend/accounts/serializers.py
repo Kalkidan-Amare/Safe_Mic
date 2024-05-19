@@ -8,7 +8,12 @@ class UserCreateSerializer(UserCreateSerializer):
     model=User
     fields=('id', 'email', 'name', 'password')
 
-class UserAccountSerializer(serializers.ModelSerializer):
+class UserAccountSerializer(serializers.ModelSerializer):    
     class Meta:
         model = User
-        fields = '__all__'
+        exclude = ('password',)
+
+class UserEmailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=['is_active']
